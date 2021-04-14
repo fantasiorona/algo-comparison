@@ -2,14 +2,16 @@
 
 // From: https://www.geeksforgeeks.org/bubble-sort/
 #pragma region BubbleSort
-void swap(int* xp, int* yp) {
-    int temp = *xp;
+template <typename T>
+void swap(T* xp, T* yp) {
+    T temp = *xp;
     *xp = *yp;
     *yp = temp;
 }
 
 // An optimized version of Bubble Sort
-void bubbleSort(int arr[], int n) {
+template <typename T>
+void bubbleSort(T arr[], int n) {
     int i, j;
     bool swapped;
     for (i = 0; i < n - 1; i++) {
@@ -30,7 +32,8 @@ void bubbleSort(int arr[], int n) {
 // From: https://www.geeksforgeeks.org/insertion-sort/
 #pragma region InsertionSort
 /* Function to sort an array using insertion sort*/
-void insertionSort(int arr[], int n) {
+template <typename T>
+void insertionSort(T arr[], int n) {
     int i, key, j;
     for (i = 1; i < n; i++) {
         key = arr[i];
@@ -52,7 +55,8 @@ void insertionSort(int arr[], int n) {
 #pragma region HeapSort
 // To heapify a subtree rooted with node i which is
 // an index in arr[]. n is size of heap
-void heapify(int arr[], int n, int i) {
+template <typename T>
+void heapify(T arr[], int n, int i) {
     int largest = i;   // Initialize largest as root
     int l = 2 * i + 1; // left = 2*i + 1
     int r = 2 * i + 2; // right = 2*i + 2
@@ -92,7 +96,8 @@ void heapSort(int arr[], int n) {
 // From: https://www.geeksforgeeks.org/radix-sort/
 #pragma region RadixSort
 // A utility function to get maximum value in arr[]
-int getMax(int arr[], int n) {
+template <typename T>
+int getMax(T arr[], int n) {
     int mx = arr[0];
     for (int i = 1; i < n; i++)
         if (arr[i] > mx) mx = arr[i];
@@ -101,7 +106,9 @@ int getMax(int arr[], int n) {
 
 // A function to do counting sort of arr[] according to
 // the digit represented by exp.
-void countSort(int arr[], int n, int exp) {
+
+template <typename T>
+void countSort(T arr[], int n, int exp) {
     int* output = (int*)alloca(n * sizeof(int)); // output array
     int i, count[10] = {0};
 
@@ -128,7 +135,8 @@ void countSort(int arr[], int n, int exp) {
 
 // The main function to that sorts arr[] of size n using
 // Radix Sort
-void radixsort(int arr[], int n) {
+template <typename T>
+void radixsort(T arr[], int n) {
     // Find the maximum number to know number of digits
     int m = getMax(arr, n);
 
