@@ -13,7 +13,7 @@ elif sys.platform == 'win32' or sys.platform == 'msys':
     program_ending = '.exe'
 else:
     host_platform = "Unknown platform: " + sys.platform
-    exit(-1)
+    exit(1)
 
     
 target_name = 'algocomparision' + program_ending
