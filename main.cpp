@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 // From: https://www.geeksforgeeks.org/bubble-sort/
 #pragma region BubbleSort
@@ -34,7 +35,8 @@ void bubbleSort(T arr[], int n) {
 /* Function to sort an array using insertion sort*/
 template <typename T>
 void insertionSort(T arr[], int n) {
-    int i, key, j;
+    int i, j;
+    T key;
     for (i = 1; i < n; i++) {
         key = arr[i];
         j = i - 1;
@@ -77,7 +79,8 @@ void heapify(T arr[], int n, int i) {
 }
 
 // main function to do heap sort
-void heapSort(int arr[], int n) {
+template <typename T>
+void heapSort(T arr[], int n) {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
         heapify(arr, n, i);
@@ -97,8 +100,8 @@ void heapSort(int arr[], int n) {
 #pragma region RadixSort
 // A utility function to get maximum value in arr[]
 template <typename T>
-int getMax(T arr[], int n) {
-    int mx = arr[0];
+T getMax(T arr[], int n) {
+    T mx = arr[0];
     for (int i = 1; i < n; i++)
         if (arr[i] > mx) mx = arr[i];
     return mx;
@@ -109,7 +112,7 @@ int getMax(T arr[], int n) {
 
 template <typename T>
 void countSort(T arr[], int n, int exp) {
-    int* output = (int*)alloca(n * sizeof(int)); // output array
+    T* output = (T*)alloca(n * sizeof(T)); // output array
     int i, count[10] = {0};
 
     // Store count of occurrences in count[]
@@ -138,71 +141,151 @@ void countSort(T arr[], int n, int exp) {
 template <typename T>
 void radixsort(T arr[], int n) {
     // Find the maximum number to know number of digits
-    int m = getMax(arr, n);
+    T m = getMax(arr, n);
 
     // Do counting sort for every digit. Note that instead
     // of passing digit number, exp is passed. exp is 10^i
     // where i is current digit number
-    for (int exp = 1; m / exp > 0; exp *= 10)
+    for (int exp = 1; m / exp > 0; exp *= 10) {
         countSort(arr, n, exp);
+    }
 }
 #pragma endregion
 
 // A utility function to print an array
-void print(int arr[], int n) {
+template <typename T>
+void print(T arr[], int n) {
     for (int i = 0; i < n; i++)
-        std::cout << arr[i] << " ";
+        std::cout << arr[i] << " | ";
+}
+
+struct A {
+    int i;
+    std::string s;
+    A() : i(1), s("string"){};
+    A(int i, std::string s) : i(i), s(s){};
+    operator int() const {
+        return i;
+    }
+};
+
+inline std::ostream& operator<<(std::ostream& os, const A& obj) {
+    os /*<< "int: " */
+        << obj.i /*<< " string: " << obj.s*/;
+    return os;
+}
+inline bool operator<(const A& lhs, const A& rhs) {
+    return lhs.i < rhs.i;
+}
+inline bool operator>(const A& lhs, const A& rhs) {
+    return rhs < lhs;
+}
+inline bool operator<=(const A& lhs, const A& rhs) {
+    return !(lhs > rhs);
+}
+inline bool operator>=(const A& lhs, const A& rhs) {
+    return !(lhs < rhs);
+}
+inline bool operator==(const A& lhs, const A& rhs) {
+    return (lhs.i == rhs.i && lhs.s == rhs.s);
+}
+inline bool operator!=(const A& lhs, const A& rhs) {
+    return !(lhs == rhs);
 }
 
 int main() {
-
     // Test Bubblesort
-    {
-        int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
-        int n = sizeof(arr) / sizeof(arr[0]);
+    {{int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-        // Function Call
-        bubbleSort(arr, n);
-        std::cout << "Bubblesort:" << std::endl;
-        print(arr, n);
-        std::cout << std::endl;
-    }
+    // Function Call
+    bubbleSort(arr, n);
+    std::cout << "Bubblesort with int:" << std::endl;
+    print(arr, n);
+    std::cout << std::endl;
+}
+{
+    A arr[] = {A(170, "string"), A(45, "string"), A(75, "string"), A(90, "string"),
+               A(802, "string"), A(24, "string"), A(2, "string"),  A(66, "string")};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-    // Test Insertionsort
-    {
-        int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
-        int n = sizeof(arr) / sizeof(arr[0]);
+    // Function Call
+    bubbleSort(arr, n);
+    std::cout << "Bubblesort with struct:" << std::endl;
+    print(arr, n);
+    std::cout << std::endl;
+}
+}
 
-        // Function Call
-        insertionSort(arr, n);
-        std::cout << "Insertionsort:" << std::endl;
-        print(arr, n);
-        std::cout << std::endl;
-    }
+// Test Insertionsort
+{{int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
+int n = sizeof(arr) / sizeof(arr[0]);
 
-    // Test Heapsort
-    {
-        int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
-        int n = sizeof(arr) / sizeof(arr[0]);
+// Function Call
+insertionSort(arr, n);
+std::cout << "Insertionsort with int:" << std::endl;
+print(arr, n);
+std::cout << std::endl;
+}
+{
+    A arr[] = {A(170, "string"), A(45, "string"), A(75, "string"), A(90, "string"),
+               A(802, "string"), A(24, "string"), A(2, "string"),  A(66, "string")};
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-        // Function Call
-        heapSort(arr, n);
-        std::cout << "Heapsort:" << std::endl;
-        print(arr, n);
-        std::cout << std::endl;
-    }
+    // Function Call
+    insertionSort(arr, n);
+    std::cout << "Insertionsort with struct:" << std::endl;
+    print(arr, n);
+    std::cout << std::endl;
+}
+}
 
-    // Test Radixsort
+// Test Heapsort
+{{int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
+int n = sizeof(arr) / sizeof(arr[0]);
+
+// Function Call
+heapSort(arr, n);
+std::cout << "Heapsort with int:" << std::endl;
+print(arr, n);
+std::cout << std::endl;
+}
+{
+    A arr[] = {A(170, "string"), A(45, "string"), A(75, "string"), A(90, "string"),
+               A(802, "string"), A(24, "string"), A(2, "string"),  A(66, "string")};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    // Function Call
+    heapSort(arr, n);
+    std::cout << "Heapsort with struct:" << std::endl;
+    print(arr, n);
+    std::cout << std::endl;
+}
+}
+// Test Radixsort
+{
     {
         int arr[] = {170, 45, 75, 90, 802, 24, 2, 66};
         int n = sizeof(arr) / sizeof(arr[0]);
 
         // Function Call
         radixsort(arr, n);
-        std::cout << "Radixsort:" << std::endl;
+        std::cout << "Radixsort with int:" << std::endl;
         print(arr, n);
         std::cout << std::endl;
     }
+    {
+        int arr[] = {A(170, "string"), A(45, "string"), A(75, "string"), A(90, "string"),
+                     A(802, "string"), A(24, "string"), A(2, "string"),  A(66, "string")};
+        int n = sizeof(arr) / sizeof(arr[0]);
 
-    return 0;
+        // Function Call
+        radixsort(arr, n);
+        std::cout << "Radixsort with struct:" << std::endl;
+        print(arr, n);
+        std::cout << std::endl;
+    }
+}
+
+return 0;
 }
