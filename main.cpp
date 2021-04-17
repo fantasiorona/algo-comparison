@@ -152,7 +152,7 @@ template <typename T>
 void heapSortPointers(T* arr[], int n) {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+        heapifyPointers(arr, n, i);
 
     // One by one extract an element from heap
     for (int i = n - 1; i > 0; i--) {
@@ -160,7 +160,7 @@ void heapSortPointers(T* arr[], int n) {
         std::swap(arr[0], arr[i]);
 
         // call max heapify on the reduced heap
-        heapify(arr, i, 0);
+        heapifyPointers(arr, i, 0);
     }
 }
 #pragma endregion
