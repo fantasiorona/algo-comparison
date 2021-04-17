@@ -8,7 +8,7 @@
 
 ## TODO:
 - [X] complain
-- [ ] implement algos
-- [ ] compare
+- [X] implement algos
+- [X] compare
 - [ ] write documentation
 - [ ] profit?????
