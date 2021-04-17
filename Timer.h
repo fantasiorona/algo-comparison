@@ -1,22 +1,54 @@
 #pragma once
 
 #include <chrono>
-#include <string>
+#include <iomanip>
 #include <iostream>
+#include <sstream>
+#include <string>
 
 class Timer final {
-public:
-  explicit Timer(std::string name = ""): name(name) {
-    startTime = std::chrono::high_resolution_clock::now();
-  }
+  public:
+    explicit Timer(std::string name = "") : name(name) {
+        startTime = std::chrono::high_resolution_clock::now();
+    }
 
-  ~Timer() {
-    auto endTime = std::chrono::high_resolution_clock::now();
-    auto count = std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
-    std::cout << name << " took " << count << " microseconds" << std::endl; 
-  }
+    ~Timer() {
+        auto endTime = std::chrono::high_resolution_clock::now();
+        auto count =
+            std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+        std::cout << name << " took " << format_microseconds(count) << std::endl;
+    }
 
-private:
-  std::chrono::high_resolution_clock::time_point startTime;
-  std::string name;
+  private:
+    std::chrono::high_resolution_clock::time_point startTime;
+    std::string name;
+    std::string format_microseconds(long long count) {
+        int minutes = count / (1000 * 1000 * 60);
+        count -= minutes * 1000 * 1000 * 60;
+        int seconds = count / (1000 * 1000);
+        count -= seconds * 1000 * 1000;
+        int milliseconds = count / 1000;
+        count -= milliseconds * 1000;
+        int microseconds = count;
+
+        std::stringstream ssMinutes;
+        ssMinutes << std::setw(1) << std::setfill('0') << minutes;
+        std::string stringMinutes = ssMinutes.str();
+
+        std::stringstream ssSeconds;
+        ssSeconds << std::setw(2) << std::setfill('0') << seconds;
+        std::string stringSeconds = ssSeconds.str();
+
+        std::stringstream ssMilliseconds;
+        ssMilliseconds << std::setw(2) << std::setfill('0') << milliseconds;
+        std::string stringMilliseconds = ssMilliseconds.str();
+
+        std::stringstream ssMicroseconds;
+        ssMicroseconds << std::setw(2) << std::setfill('0') << microseconds;
+        std::string stringMicroseconds = ssMicroseconds.str();
+
+        std::string string = stringMinutes + "m " + stringSeconds + "s " + stringMilliseconds +
+                             "ms " + stringMicroseconds + "us";
+        return string;
+    }
 };
