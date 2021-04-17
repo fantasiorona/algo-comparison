@@ -1,0 +1,17 @@
+Running benchmarks with 70000 elements per algorithm.
+Bubblesort with int (data-driven) took 6093116 microseconds
+Bubblesort with int (separate allocations) took 7884006 microseconds
+Bubblesort with struct (data-driven) took 16924908 microseconds
+Bubblesort with struct (separate allocations) took 16326263 microseconds
+Insertion sort with int (data-driven) took 882870 microseconds
+Insertion sort with int (separate allocations) took 1891997 microseconds
+Insertion sort with struct (data-driven) took 4055439 microseconds
+Insertion sort with struct (separate allocations) took 4587440 microseconds
+Heap sort with int (data-driven) took 7633 microseconds
+Heap sort with int (separate allocations) took 5103 microseconds
+Heap sort with struct (data-driven) took 16193 microseconds
+Heap sort with struct (separate allocations) took 5239 microseconds
+Radix sort with int (data-driven) took 2956 microseconds
+Radix sort with int (separate allocations) took 6089 microseconds
+Radix sort with struct (data-driven) took 9421 microseconds
+Radix sort with struct (separate allocations) took 9260 microseconds

@@ -3,6 +3,7 @@ import sys
 
 # Create the environment and create a Compilation Database for use in VSCodium
 env = DefaultEnvironment(tools=['default', 'compilation_db'])
+env.Append(CXXFLAGS = '-std=c++11 -O3')
 env.CompilationDatabase()
 
 if sys.platform.startswith('linux'):
