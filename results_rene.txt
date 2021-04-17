@@ -1,17 +1,17 @@
 Running benchmarks with 70000 elements per algorithm.
-Bubblesort with int (data-driven) took 6432574 microseconds
-Bubblesort with int (separate allocations) took 8006480 microseconds
-Bubblesort with struct (data-driven) took 20671556 microseconds
-Bubblesort with struct (separate allocations) took 21788257 microseconds
-Insertion sort with int (data-driven) took 950508 microseconds
-Insertion sort with int (separate allocations) took 1913125 microseconds
-Insertion sort with struct (data-driven) took 3987369 microseconds
-Insertion sort with struct (separate allocations) took 5096593 microseconds
-Heap sort with int (data-driven) took 9023 microseconds
-Heap sort with int (separate allocations) took 754 microseconds
-Heap sort with struct (data-driven) took 25937 microseconds
-Heap sort with struct (separate allocations) took 1565 microseconds
-Radix sort with int (data-driven) took 3995 microseconds
-Radix sort with int (separate allocations) took 8473 microseconds
-Radix sort with struct (data-driven) took 11665 microseconds
-Radix sort with struct (separate allocations) took 13322 microseconds
+Bubblesort with int (data-driven) took 7062012 microseconds
+Bubblesort with int (separate allocations) took 8273448 microseconds
+Bubblesort with struct (data-driven) took 16246443 microseconds
+Bubblesort with struct (separate allocations) took 16724522 microseconds
+Insertion sort with int (data-driven) took 861605 microseconds
+Insertion sort with int (separate allocations) took 1890552 microseconds
+Insertion sort with struct (data-driven) took 3892617 microseconds
+Insertion sort with struct (separate allocations) took 5345656 microseconds
+Heap sort with int (data-driven) took 8391 microseconds
+Heap sort with int (separate allocations) took 10281 microseconds
+Heap sort with struct (data-driven) took 15799 microseconds
+Heap sort with struct (separate allocations) took 20085 microseconds
+Radix sort with int (data-driven) took 2885 microseconds
+Radix sort with int (separate allocations) took 5776 microseconds
+Radix sort with struct (data-driven) took 10748 microseconds
+Radix sort with struct (separate allocations) took 15590 microseconds

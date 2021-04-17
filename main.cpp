@@ -144,7 +144,7 @@ void heapifyPointers(T* arr[], int n, int i) {
         std::swap(*arr[i], *arr[largest]);
 
         // Recursively heapify the affected sub-tree
-        heapify(arr, n, largest);
+        heapifyPointers(arr, n, largest);
     }
 }
 
