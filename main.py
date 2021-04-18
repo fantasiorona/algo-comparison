@@ -5,6 +5,7 @@ import time
 # Argument parsing
 parser = argparse.ArgumentParser()
 parser.add_argument("algorithm", choices=["bubble", "insert", "heap", "radix", "python", "all"])
+parser.add_argument('--struct', action="store_true")
 args = parser.parse_args()
 
 # All algorithm implementations from https://www.geeksforgeeks.org/
@@ -149,27 +150,59 @@ def radixSort(arr):
         exp *= 10
 
 
-def readData():
+class UselessStruct:
+    i: int
+
+    f1: float
+    f2: float
+    f3: int
+    f4: int
+    f5: int
+    f6: float
+    f7: float
+    f8: int
+
+    def __init__(self, number):
+        self.i = number
+
+        self.f1 = 1
+        self.f2 = 2
+        self.f3 = 3
+        self.f4 = 4
+        self.f5 = 5
+        self.f6 = 6
+        self.f7 = 7
+        self.f8 = 8
+
+    def __lt__(self, other):
+        return self.i < other.i
+
+
+def readData(use_struct):
     #max = 0;
     arr = []
     with open("randomNumbers.txt") as file:
         for line in file.readlines():
-            #if max > 10:
+            # if max > 10:
             #    return arr
-
-            arr.append(int(line))
+            if use_struct:
+                arr.append(UselessStruct(int(line)))
+            else:
+                arr.append(int(line))
             #max += 1
     return arr
 
 
 def reset(arr, start):
-    arr = readData()
+    arr = readData(args.struct)
     start = time.time()
     return arr, start
 
 
 # Driver code to test above
-arr = readData()
+arr = readData(args.struct)
+
+print(args.struct)
 
 print("Running benchmarks with ", len(arr), " elements per algorithm...")
 start = time.time()
