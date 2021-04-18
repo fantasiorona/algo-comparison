@@ -4,7 +4,7 @@ import time
 
 # Argument parsing
 parser = argparse.ArgumentParser()
-parser.add_argument("algorithm", choices=["bubble", "insert", "heap", "radix", "python"])
+parser.add_argument("algorithm", choices=["bubble", "insert", "heap", "radix", "python", "all"])
 args = parser.parse_args()
 
 # All algorithm implementations from https://www.geeksforgeeks.org/
@@ -149,13 +149,29 @@ def radixSort(arr):
         exp *= 10
 
 
+def readData():
+    #max = 0;
+    arr = []
+    with open("randomNumbers.txt") as file:
+        for line in file.readlines():
+            #if max > 10:
+            #    return arr
+
+            arr.append(int(line))
+            #max += 1
+    return arr
+
+
+def reset(arr, start):
+    arr = readData()
+    start = time.time()
+    return arr, start
+
+
 # Driver code to test above
-arr = []
+arr = readData()
 
-with open("randomNumbers.txt") as file:
-    for line in file.readlines():
-        arr.append(int(line))
-
+print("Running benchmarks with ", len(arr), " elements per algorithm...")
 start = time.time()
 
 if args.algorithm == "bubble":
@@ -168,8 +184,23 @@ elif args.algorithm == "radix":
     radixSort(arr)
 elif args.algorithm == "python":
     arr.sort()
+elif args.algorithm == "all":
+    bubbleSort(arr)
+    print("bubbleSort took\t\t", time.time() - start, " seconds")
+
+    arr, start = reset(arr, start)
+    heapSort(arr)
+    print("HeapSort took\t\t", time.time() - start, " seconds")
+
+    arr, start = reset(arr, start)
+    insertionSort(arr)
+    print("InsertionSort took\t", time.time() - start, " seconds")
+
+    arr, start = reset(arr, start)
+    radixSort(arr)
+    print("RadixSort took\t\t", time.time() - start, " seconds")
+    exit()
 else:
     print("Unknown sort algorithm!")
 
-end = time.time()
-print("Sorting took", end - start, " seconds")
+print("Sorting took", time.time() - start, " seconds")
