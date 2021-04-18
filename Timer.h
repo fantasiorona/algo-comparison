@@ -23,7 +23,8 @@ class Timer final {
     std::chrono::high_resolution_clock::time_point startTime;
     std::string name;
     std::string format_microseconds(long long count) {
-        int minutes = count / (1000 * 1000 * 60);
+        std::string string = std::to_string(count / (1000.0f * 1000.0f)) + " seconds";
+        /*int minutes = count / (1000 * 1000 * 60);
         count -= minutes * 1000 * 1000 * 60;
         int seconds = count / (1000 * 1000);
         count -= seconds * 1000 * 1000;
@@ -40,15 +41,15 @@ class Timer final {
         std::string stringSeconds = ssSeconds.str();
 
         std::stringstream ssMilliseconds;
-        ssMilliseconds << std::setw(2) << std::setfill('0') << milliseconds;
+        ssMilliseconds << std::setw(3) << std::setfill('0') << milliseconds;
         std::string stringMilliseconds = ssMilliseconds.str();
 
         std::stringstream ssMicroseconds;
-        ssMicroseconds << std::setw(2) << std::setfill('0') << microseconds;
+        ssMicroseconds << std::setw(3) << std::setfill('0') << microseconds;
         std::string stringMicroseconds = ssMicroseconds.str();
 
         std::string string = stringMinutes + "m " + stringSeconds + "s " + stringMilliseconds +
-                             "ms " + stringMicroseconds + "us";
+                             "ms " + stringMicroseconds + "us";*/
         return string;
     }
 };

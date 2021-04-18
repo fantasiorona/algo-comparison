@@ -350,97 +350,101 @@ inline bool operator!=(const A& lhs, const A& rhs) {
     return !(lhs == rhs);
 }
 
+#define MAX_IT 3
+
 int main() {
-    int n = 70000;
-    std::cout << "Running benchmarks with " << n << " elements per algorithm." << std::endl;
+    int elems[MAX_IT] = {7000, 70000, 700000};
+    for (int i = 0; i < MAX_IT; ++i) {
+        int n = elems[i];
+        std::cout << "\r\nRunning benchmarks with " << n << " elements per algorithm..." << std::endl;
 
-    // Test Bubblesort
-    {
-        int* arr = generateData<int>(n);
-        Timer timer("Bubblesort with int (data-driven)");
-        bubbleSort(arr, n);
-    }
-    {
-        int** arr = generateDataSeparateAllocations<int>(n);
-        Timer timer("Bubblesort with int (separate allocations)");
-        bubbleSortPointers(arr, n);
-    }
-    {
-        A *arr = generateData<A>(n);
-        Timer timer("Bubblesort with struct (data-driven)");
-        bubbleSort(arr, n);
-    }
-    {
-        A** arr = generateDataSeparateAllocations<A>(n);
-        Timer timer("Bubblesort with struct (separate allocations)");
-        bubbleSortPointers(arr, n);
-    }
+        // Test Bubblesort
+        {
+            int* arr = generateData<int>(n);
+            Timer timer("Bubblesort with int (data-driven)\t\t\t");
+            bubbleSort(arr, n);
+        }
+        {
+            int** arr = generateDataSeparateAllocations<int>(n);
+            Timer timer("Bubblesort with int (separate allocations)\t\t");
+            bubbleSortPointers(arr, n);
+        }
+        {
+            A *arr = generateData<A>(n);
+            Timer timer("Bubblesort with struct (data-driven)\t\t\t");
+            bubbleSort(arr, n);
+        }
+        {
+            A** arr = generateDataSeparateAllocations<A>(n);
+            Timer timer("Bubblesort with struct (separate allocations)\t\t");
+            bubbleSortPointers(arr, n);
+        }
 
-    // Test Insertionsort
-    {
-        int* arr = generateData<int>(n);
-        Timer timer("Insertion sort with int (data-driven)");
-        insertionSort(arr, n);
-    }
-    {
-        int** arr = generateDataSeparateAllocations<int>(n);
-        Timer timer("Insertion sort with int (separate allocations)");
-        insertionSortPointers(arr, n);
-    }
-    {
-        A* arr = generateData<A>(n);
-        Timer timer("Insertion sort with struct (data-driven)");
-        insertionSort(arr, n);
-    }
-    {
-        A** arr = generateDataSeparateAllocations<A>(n);
-        Timer timer("Insertion sort with struct (separate allocations)");
-        insertionSortPointers(arr, n);
-    }
+        // Test Insertionsort
+        {
+            int* arr = generateData<int>(n);
+            Timer timer("Insertion sort with int (data-driven)\t\t\t");
+            insertionSort(arr, n);
+        }
+        {
+            int** arr = generateDataSeparateAllocations<int>(n);
+            Timer timer("Insertion sort with int (separate allocations)\t\t");
+            insertionSortPointers(arr, n);
+        }
+        {
+            A* arr = generateData<A>(n);
+            Timer timer("Insertion sort with struct (data-driven)\t\t");
+            insertionSort(arr, n);
+        }
+        {
+            A** arr = generateDataSeparateAllocations<A>(n);
+            Timer timer("Insertion sort with struct (separate allocations)\t");
+            insertionSortPointers(arr, n);
+        }
 
-    // Test Heapsort
-    {
-        int* arr = generateData<int>(n);
-        Timer timer("Heap sort with int (data-driven)");
-        heapSort(arr, n);
-    }
-    {
-        int** arr = generateDataSeparateAllocations<int>(n);
-        Timer timer("Heap sort with int (separate allocations)");
-        heapSortPointers(arr, n);
-    }
-    {
-        A* arr = generateData<A>(n);
-        Timer timer("Heap sort with struct (data-driven)");
-        heapSort(arr, n);
-    }
-    {
-        A** arr = generateDataSeparateAllocations<A>(n);
-        Timer timer("Heap sort with struct (separate allocations)");
-        heapSortPointers(arr, n);
-    }
+        // Test Heapsort
+        {
+            int* arr = generateData<int>(n);
+            Timer timer("Heap sort with int (data-driven)\t\t\t");
+            heapSort(arr, n);
+        }
+        {
+            int** arr = generateDataSeparateAllocations<int>(n);
+            Timer timer("Heap sort with int (separate allocations)\t\t");
+            heapSortPointers(arr, n);
+        }
+        {
+            A* arr = generateData<A>(n);
+            Timer timer("Heap sort with struct (data-driven\t\t\t");
+            heapSort(arr, n);
+        }
+        {
+            A** arr = generateDataSeparateAllocations<A>(n);
+            Timer timer("Heap sort with struct (separate allocations)\t\t");
+            heapSortPointers(arr, n);
+        }
 
-    // Test Radixsort
-    {
-        int* arr = generateData<int>(n);
-        Timer timer("Radix sort with int (data-driven)");
-        radixsort(arr, n);
+        // Test Radixsort
+        {
+            int* arr = generateData<int>(n);
+            Timer timer("Radix sort with int (data-driven)\t\t\t");
+            radixsort(arr, n);
+        }
+        {
+            int** arr = generateDataSeparateAllocations<int>(n);
+            Timer timer("Radix sort with int (separate allocations)\t\t");
+            radixsortPointers(arr, n);
+        }
+        {
+            A* arr = generateData<A>(n);
+            Timer timer("Radix sort with struct (data-driven)\t\t\t");
+            radixsort(arr, n);
+        }
+        {
+            A** arr = generateDataSeparateAllocations<A>(n);
+            Timer timer("Radix sort with struct (separate allocations)\t\t");
+            radixsortPointers(arr, n);
+        }
     }
-    {
-        int** arr = generateDataSeparateAllocations<int>(n);
-        Timer timer("Radix sort with int (separate allocations)");
-        radixsortPointers(arr, n);
-    }
-    {
-        A* arr = generateData<A>(n);
-        Timer timer("Radix sort with struct (data-driven)");
-        radixsort(arr, n);
-    }
-    {
-        A** arr = generateDataSeparateAllocations<A>(n);
-        Timer timer("Radix sort with struct (separate allocations)");
-        radixsortPointers(arr, n);
-    }
-
     return 0;
 }
