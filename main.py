@@ -189,16 +189,20 @@ elif args.algorithm == "all":
     print("bubbleSort took\t\t", time.time() - start, " seconds")
 
     arr, start = reset(arr, start)
-    heapSort(arr)
-    print("HeapSort took\t\t", time.time() - start, " seconds")
-
-    arr, start = reset(arr, start)
     insertionSort(arr)
     print("InsertionSort took\t", time.time() - start, " seconds")
 
     arr, start = reset(arr, start)
+    heapSort(arr)
+    print("HeapSort took\t\t", time.time() - start, " seconds")
+
+    arr, start = reset(arr, start)
     radixSort(arr)
     print("RadixSort took\t\t", time.time() - start, " seconds")
+
+    arr, start = reset(arr, start)
+    arr.sort()
+    print("Python TimSort took\t\t", time.time() - start, " seconds")
     exit()
 else:
     print("Unknown sort algorithm!")
