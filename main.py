@@ -111,7 +111,7 @@ def countingSort(arr, exp1):
 
     # Store count of occurrences in count[]
     for i in range(0, n):
-        index = (arr[i]/exp1)
+        index = (int(arr[i])/exp1)
         count[int((index) % 10)] += 1
 
     # Change count[i] so that count[i] now contains actual
@@ -122,7 +122,7 @@ def countingSort(arr, exp1):
     # Build the output array
     i = n-1
     while i >= 0:
-        index = (arr[i]/exp1)
+        index = (int(arr[i])/exp1)
         output[count[int((index) % 10)] - 1] = arr[i]
         count[int((index) % 10)] -= 1
         i -= 1
@@ -145,7 +145,7 @@ def radixSort(arr):
     # of passing digit number, exp is passed. exp is 10^i
     # where i is current digit number
     exp = 1
-    while max1/exp > 0:
+    while int(max1)/exp > 0:
         countingSort(arr, exp)
         exp *= 10
 
@@ -177,10 +177,14 @@ class UselessStruct:
     def __lt__(self, other):
         return self.i < other.i
 
+    def __int__(self):
+        return self.i
+
 
 def readData(use_struct):
     #max = 0;
     arr = []
+
     with open("randomNumbers.txt") as file:
         for line in file.readlines():
             # if max > 10:
@@ -201,8 +205,6 @@ def reset(arr, start):
 
 # Driver code to test above
 arr = readData(args.struct)
-
-print(args.struct)
 
 print("Running benchmarks with ", len(arr), " elements per algorithm...")
 start = time.time()
