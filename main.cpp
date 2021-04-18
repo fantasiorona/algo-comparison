@@ -1,6 +1,6 @@
+#include <cstdlib>
 #include <iostream>
 #include <string>
-#include <cstdlib>
 
 #include "Timer.h"
 
@@ -134,10 +134,10 @@ void heapifyPointers(T* arr[], int n, int i) {
     int r = 2 * i + 2; // right = 2*i + 2
 
     // If left child is larger than root
-    if (l < n && *arr[l] > *arr[largest]) largest = l;
+    if (l<n&& * arr[l]> * arr[largest]) largest = l;
 
     // If right child is larger than largest so far
-    if (r < n && *arr[r] > *arr[largest]) largest = r;
+    if (r<n&& * arr[r]> * arr[largest]) largest = r;
 
     // If largest is not root
     if (largest != i) {
@@ -181,7 +181,7 @@ T getMax(T arr[], int n) {
 
 template <typename T>
 void countSort(T arr[], int n, int exp) {
-    T* output = (T*)alloca(n * sizeof(T)); // output array
+    T* output = (T*)malloc(n * sizeof(T)); // output array
     int i, count[10] = {0};
 
     // Store count of occurrences in count[]
@@ -201,8 +201,10 @@ void countSort(T arr[], int n, int exp) {
 
     // Copy the output array to arr[], so that arr[] now
     // contains sorted numbers according to current digit
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         arr[i] = output[i];
+    }
+    delete[] output;
 }
 
 // The main function to that sorts arr[] of size n using
@@ -253,8 +255,10 @@ void countSortPointers(T* arr[], int n, int exp) {
 
     // Copy the output array to arr[], so that arr[] now
     // contains sorted numbers according to current digit
-    for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++) {
         arr[i] = output[i];
+    }
+    delete[] output;
 }
 
 // The main function to that sorts arr[] of size n using
@@ -298,7 +302,7 @@ struct A {
     float f7;
     short f8;
     A() : i(1), f1(2.0f){};
-    A(int i) : i(i) {};
+    A(int i) : i(i){};
     operator int() const {
         return i;
     }
@@ -356,50 +360,78 @@ int main() {
     int elems[MAX_IT] = {7000, 70000, 700000};
     for (int i = 0; i < MAX_IT; ++i) {
         int n = elems[i];
-        std::cout << "\r\nRunning benchmarks with " << n << " elements per algorithm..." << std::endl;
+        std::cout << "\r\nRunning benchmarks with " << n << " elements per algorithm..."
+                  << std::endl;
 
         // Test Bubblesort
         {
             int* arr = generateData<int>(n);
             Timer timer("Bubblesort with int (data-driven)\t\t\t");
             bubbleSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             int** arr = generateDataSeparateAllocations<int>(n);
             Timer timer("Bubblesort with int (separate allocations)\t\t");
             bubbleSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
         {
-            A *arr = generateData<A>(n);
+            A* arr = generateData<A>(n);
             Timer timer("Bubblesort with struct (data-driven)\t\t\t");
             bubbleSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             A** arr = generateDataSeparateAllocations<A>(n);
             Timer timer("Bubblesort with struct (separate allocations)\t\t");
             bubbleSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
-
         // Test Insertionsort
         {
             int* arr = generateData<int>(n);
             Timer timer("Insertion sort with int (data-driven)\t\t\t");
             insertionSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             int** arr = generateDataSeparateAllocations<int>(n);
             Timer timer("Insertion sort with int (separate allocations)\t\t");
             insertionSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
         {
             A* arr = generateData<A>(n);
             Timer timer("Insertion sort with struct (data-driven)\t\t");
             insertionSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             A** arr = generateDataSeparateAllocations<A>(n);
             Timer timer("Insertion sort with struct (separate allocations)\t");
             insertionSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
 
         // Test Heapsort
@@ -407,21 +439,35 @@ int main() {
             int* arr = generateData<int>(n);
             Timer timer("Heap sort with int (data-driven)\t\t\t");
             heapSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             int** arr = generateDataSeparateAllocations<int>(n);
             Timer timer("Heap sort with int (separate allocations)\t\t");
             heapSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
         {
             A* arr = generateData<A>(n);
             Timer timer("Heap sort with struct (data-driven\t\t\t");
             heapSort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             A** arr = generateDataSeparateAllocations<A>(n);
             Timer timer("Heap sort with struct (separate allocations)\t\t");
             heapSortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
 
         // Test Radixsort
@@ -429,21 +475,35 @@ int main() {
             int* arr = generateData<int>(n);
             Timer timer("Radix sort with int (data-driven)\t\t\t");
             radixsort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             int** arr = generateDataSeparateAllocations<int>(n);
             Timer timer("Radix sort with int (separate allocations)\t\t");
             radixsortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
         {
             A* arr = generateData<A>(n);
             Timer timer("Radix sort with struct (data-driven)\t\t\t");
             radixsort(arr, n);
+            timer.Stop();
+            delete[] arr;
         }
         {
             A** arr = generateDataSeparateAllocations<A>(n);
             Timer timer("Radix sort with struct (separate allocations)\t\t");
             radixsortPointers(arr, n);
+            timer.Stop();
+            for (int j = 0; j < n; j++) {
+                delete arr[j];
+            }
+            delete[] arr;
         }
     }
     return 0;

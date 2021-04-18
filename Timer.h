@@ -12,7 +12,7 @@ class Timer final {
         startTime = std::chrono::high_resolution_clock::now();
     }
 
-    ~Timer() {
+    void Stop() {
         auto endTime = std::chrono::high_resolution_clock::now();
         auto count =
             std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
